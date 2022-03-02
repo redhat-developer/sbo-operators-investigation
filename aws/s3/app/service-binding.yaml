@@ -1,0 +1,17 @@
+apiVersion: binding.operators.coreos.com/v1alpha1
+kind: ServiceBinding
+metadata:
+  name: servicebinding-aws
+spec:
+  bindAsFiles: false
+  namingStrategy: "{{ .name | upper }}"
+  services:
+    - group: ""
+      version: v1
+      kind: Secret
+      name: aws-creds
+  application:
+    name: aws-sdk-sbo
+    version: v1
+    group: apps
+    resource: deployments

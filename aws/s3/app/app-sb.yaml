@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-sdk-sbo
+  labels:
+    app: aws-sdk-sbo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-sdk-app-sbo
+  template:
+    metadata:
+      labels:
+        app: aws-sdk-app-sbo
+    spec:
+      containers:
+        - name: app
+          image: aws-sdk-test
+          imagePullPolicy: Never
+          command: [ "sleep" ]
+          args: [ "infinity" ]
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - name: http
+              containerPort: 3000
