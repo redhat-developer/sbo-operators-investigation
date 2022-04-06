@@ -1,0 +1,15 @@
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: {{ .Values.dbinstance.name }}
+spec:
+  allocatedStorage: {{ .Values.dbinstance.allocatedStorage }}
+  dbInstanceClass: {{ .Values.dbinstance.dbInstanceClass }}
+  dbInstanceIdentifier: {{ .Values.dbinstance.name }}
+  engine: {{ .Values.dbinstance.engine }}
+  engineVersion: "{{ .Values.dbinstance.engineVersion }}"
+  masterUsername: {{ .Values.dbcreds.username }}
+  masterUserPassword:
+    namespace: {{ .Release.Namespace }}
+    name: {{ .Values.dbcreds.name }}
+    key: password
