@@ -1,0 +1,17 @@
+apiVersion: binding.operators.coreos.com/v1alpha1
+kind: ServiceBinding
+metadata:
+  name: servicebinding-rds
+spec:
+  bindAsFiles: false
+  namingStrategy: "{{ .name | upper }}"
+  services:
+    - group: ""
+      version: v1
+      kind: Secret
+      name: db-secret
+  application:
+    name: aws-rds-sbo
+    version: v1
+    group: apps
+    resource: deployments
