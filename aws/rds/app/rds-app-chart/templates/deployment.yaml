@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-rds-sbo
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: aws-rds-app-sbo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-rds-app-sbo
+  template:
+    metadata:
+      labels:
+        app: aws-rds-app-sbo
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              cpu:  {{.Values.resources.limits.cpu }}
+              memory: {{.Values.resources.limits.memory }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
